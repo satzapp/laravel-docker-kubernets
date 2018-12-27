@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: laravel-application
+  labels:
+    app: laravel-application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: laravel-application
+  template:
+    metadata:
+      labels:
+        app: laravel-application
+    spec:
+      containers:
+      - name: laravel-application
+        image: gcr.io/testing-network-222808/laravel-k8s:v1.3
+        volumeMounts:
+        - name: app-secret
+          mountPath: "/var/www/html/secret"
+          readOnly: false
+        ports:
+        - containerPort: 80
+          protocol: TCP
+      restartPolicy: Always
+      volumes:
+      - name: app-secret
+        secret:
+          secretName: laravel-app-secret
+      imagePullSecrets:
+      - name: regsecret
