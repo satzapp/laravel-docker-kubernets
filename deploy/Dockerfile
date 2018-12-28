@@ -52,7 +52,7 @@ WORKDIR /var/www/html
 
 RUN cd /var/www/html 
 
-# RUN composer update
+RUN composer update
 
 # RUN rm /etc/nginx/sites-enabled/default
 
@@ -61,8 +61,8 @@ COPY ./deploy/deploy.conf /etc/nginx/conf.d/default.conf
 RUN mv /usr/local/etc/php-fpm.d/www.conf /usr/local/etc/php-fpm.d/www.conf.backup
 COPY ./deploy/www.conf /usr/local/etc/php-fpm.d/www.conf
 
-# RUN usermod -a -G www-data root
-# RUN chgrp -R www-data storage
+RUN usermod -a -G www-data root
+RUN chgrp -R www-data storage
 
 RUN chown -R www-data:www-data ./storage
 RUN chmod -R 0777 ./storage
@@ -74,5 +74,3 @@ RUN chmod +x ./deploy/run
 ENTRYPOINT ["./deploy/run"]
 
 EXPOSE 80 443
-
-
