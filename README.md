@@ -1,2 +1,2 @@
-# laravel-docker-k8s
-Laravel deployment using kubernets
+# laravel-docker-kubernets
+Laravel deployment using docker with kubernets
